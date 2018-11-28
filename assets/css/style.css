@@ -1,3 +1,7 @@
 body {
     background-color: lightblue;
 }
+
+.form-control, input[type="text"] {
+    background-color: lightcyan;
+}

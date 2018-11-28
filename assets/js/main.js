@@ -26,6 +26,7 @@ $("#submit-btn").on("click", function (e) {
         "favMovie": favMovie
     });
 
+
     $("#name").val("");
     $("#fav-movie").val("");
 });
@@ -33,11 +34,36 @@ $("#submit-btn").on("click", function (e) {
 database.ref("/users").on("child_added", function (snapshot) {
     console.log(snapshot.key);
     console.log(snapshot.val());
+    var userObj = {
+        key: snapshot.key,
+        name: snapshot.val().name,
+        favMovie: snapshot.val().favMovie
+    };
+    var userObjString = JSON.stringify(userObj);
     var tr = $("<tr>");
+    tr.addClass(snapshot.key);
     tr.append(
         $("<td>").text(snapshot.key),
-        $("<td>").text(snapshot.val().name),
-        $("<td>").text(snapshot.val().favMovie)
+        $("<td>").text(snapshot.val().name).addClass("name"),
+        $("<td>").text(snapshot.val().favMovie).addClass("fav-movie"),
+        $("<td>").append($("<button class='btn btn-info update-btn'>").text("Update").attr("data-user", userObjString))
     );
     $("#movie-table tbody").append(tr);
+});
+
+$(document).on("click", ".update-btn", function(e){
+    e.preventDefault();
+    var userObj = JSON.parse($(this).attr("data-user"));
+
+    var updates = {};
+    updates["/users/"+userObj.key] = { "name": "Travis", "favMovie": "Arrival" };
+    console.log(updates);
+
+    return database.ref().update(updates);
+});
+
+database.ref("/users").on("child_changed", function(snapshot){
+    var key = "." + snapshot.key;
+    $(key + " .name").text(snapshot.val().name);
+    $(key + " .fav-movie").text(snapshot.val().favMovie);
 });
