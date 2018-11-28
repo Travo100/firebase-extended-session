@@ -1,21 +1,18 @@
- // Initialize Firebase
- var config = {
+// Initialize Firebase
+var config = {
     apiKey: "AIzaSyDCZRxDedt0vShViXwJiaS4MJm7aywJ9os",
     authDomain: "fir-extended-session.firebaseapp.com",
     databaseURL: "https://fir-extended-session.firebaseio.com",
     projectId: "fir-extended-session",
     storageBucket: "fir-extended-session.appspot.com",
     messagingSenderId: "29912362988"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
-  var database = firebase.database();
+var database = firebase.database();
 
-
-$("#submit-btn").on("click", function(e){
+$("#submit-btn").on("click", function (e) {
     e.preventDefault();
-
-    
     // getting the values from the input fields
     var name = $("#name").val().trim();
     var favMovie = $("#fav-movie").val().trim();
@@ -33,13 +30,13 @@ $("#submit-btn").on("click", function(e){
     $("#fav-movie").val("");
 });
 
-database.ref("/users").on("child_added", function(snapshot){
+database.ref("/users").on("child_added", function (snapshot) {
     console.log(snapshot.key);
     console.log(snapshot.val());
     var tr = $("<tr>");
     tr.append(
-        $("<td>").text(snapshot.key), 
-        $("<td>").text(snapshot.val().name), 
+        $("<td>").text(snapshot.key),
+        $("<td>").text(snapshot.val().name),
         $("<td>").text(snapshot.val().favMovie)
     );
     $("#movie-table tbody").append(tr);
