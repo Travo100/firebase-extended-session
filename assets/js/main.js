@@ -1,1 +1,1 @@
-console.log(true);
+$("h1").text("jQuery is working!");
