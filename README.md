@@ -5,4 +5,4 @@ GitHub: https://github.com/Travo100/firebase-extended-session
 
 Deployed Site: https://travo100.github.io/firebase-extended-session/
 
-Video: <processing>
+Video: https://s3-us-west-2.amazonaws.com/extended-sessions-cbc/october-2018-ft/07-firebase/GMT20181128-003008_UCSD-Codin_1920x1080.mp4
